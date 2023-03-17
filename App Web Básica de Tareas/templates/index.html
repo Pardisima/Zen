@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title >App Gestor de Tareas</title>
+
+
+    <!-- Bootstrap con plantilla-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+
+    <!-- Hoja de estilo propia (main.css)-->
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css') }}">
+
+    <!-- Fuente de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2? family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 style="color:blue;" class="display-1">App de Gestión de Tareas</h1>
+        <blockquote class="blockquote">
+         <p> Un buen desarrollador de Python y alumno de Tokyo trabaja con disciplina y constancia.</p>
+         <footer class="blockquote-footer">Cristian Rodríguez Montera</footer>
+        </blockquote>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto"> <!--Este div ocupará 4 columnas del espacio (centrado)-->
+                <div class="card"> <!--Creacion del objeto card-->
+                    <div class="card-header">
+                        <form action="/crear-tarea" method="POST">
+                            <!-- Separamos el input del boton metiendo el input en este form-group
+                           para que los elementos no esten pegados y haya separacion entre ellos -->
+                            <div class="form-group">
+                                <input type="text" name="contenido_tarea" placeholder="Tarea" class="form-control" autofocus>
+                            </div>
+
+                            <!-- btn-block hace que el boton ocupe todo el ancho -->
+                            <button class="btn btn-success btn-block">Guardar</button>
+                        </form>
+
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            {% for tarea in lista_de_tareas: %}
+                            <li>
+                                <span class="{% if tarea.hecha == true %}tarea_hecha {% endif %}">
+                                {{tarea.contenido}}
+                                </span>
+
+                              <a href="/tarea-hecha/{{tarea.id}}" style="text-decoration:none">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="green"
+                                class="bi bi-check2-square" viewBox="0 0 16 16">
+                                 <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0
+                                1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5
+                                1.5 0 0 1-1.5 1.5H3z"/>
+                                 <path d="M8.354 10.354l7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0
+                                1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                                 </svg>
+                                </a>
+
+                                <a href="/eliminar-tarea/{{ tarea.id }}" style="text-decoration:none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="red" class="bi bi-trash2" viewBox="0 0 16 16">
+                                     <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div
+    </main>
+</body>
+</html>
